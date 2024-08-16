@@ -4,8 +4,8 @@
 
 Requirements
 - UMI-tools https://umi-tools.readthedocs.io/en/latest/
-- seqkit
-- trim_galore
+- seqkit https://bioinf.shenwei.me/seqkit/
+- trim_galore https://github.com/FelixKrueger/TrimGalore
 - bowtie2
 - samtools
 - python
