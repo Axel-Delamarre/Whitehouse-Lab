@@ -18,4 +18,4 @@ Visualize the .mcool file in HiGlass https://higlass.io/ or using pyGenomeTracks
 
 This pipe line can be run through source:
 in the terminal cd to the appropriate folder and run
-source tehsource.txt
+source thesource.txt
