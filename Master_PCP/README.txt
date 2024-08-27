@@ -26,7 +26,7 @@ source thesource.txt
 
 
 
-Steps in the data processing from fastq files to .hic and .mcool maps.
+Here is a description of the steps in the data processing from fastq files to .hic and .mcool maps.
 
 •	The UMI is extracted and appended to the read ID using UMI-tools 
 umi_tools extract -I R1.fastq.gz --bc-pattern=NNNNNNNNNNNNNNNNNNNN --read2-in=R2. fastq.gz --stdout=processed.R1.fastq.gz --read2-out=processed.R2. fastq.gz
