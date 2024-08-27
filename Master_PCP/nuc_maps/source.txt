@@ -1,0 +1,21 @@
+
+python ReadInfo--thr2_to_bed.py
+
+sed -e 's/chr16/chrXVI/g' -e 's/chr15/chrXV/g' -e 's/chr14/chrXIV/g' -e 's/chr13/chrXIII/g' -e 's/chr12/chrXII/g' -e 's/chr11/chrXI/g' -e 's/chr10/chrX/g' -e 's/chr9/chrIX/g' -e 's/chr8/chrVIII/g' -e 's/chr7/chrVII/g' -e 's/chr6/chrVI/g' -e 's/chr5/chrV/g' -e 's/chr4/chrIV/g' -e 's/chr3/chrIII/g' -e 's/chr2/chrII/g' -e 's/chr1/chrI/g' read_info.mixed.bed > read_info.mixed.r.bed
+
+# Sort the bed 
+sort -k1,1 -k2,2n read_info.mixed.r.bed > read_info.mixed.r.s.bed
+
+
+awk '{print $1 "\t" $2-40 "\t" $2+40}' read_info.mixed.r.s.bed > read_info.mixed.80.r.s.bed
+
+awk '($2>1)' read_info.mixed.80.r.s.bed > read_info.mixed.80.r.s.f.bed
+
+
+bedtools genomecov -bg -i read_info.mixed.80.r.s.f.bed -g sacCer2.chrsize3.txt > mixed.80.bedgraph
+
+bedtools genomecov -bg -i read_info.mixed.r.s.bed -g sacCer2.chrsize3.txt > mixed.bedgraph
+
+bedgraphtobigwig mixed.80.bedgraph sacCer2.chrsize3.txt mixed.80.bigwig
+
+bedgraphtobigwig mixed.bedgraph sacCer2.chrsize3.txt mixed.bigwig

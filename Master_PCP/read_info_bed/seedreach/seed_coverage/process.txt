@@ -1,0 +1,27 @@
+sort -k 1,1 ../seed_read_info.bed > seed_read_info.s.bed 
+
+
+bedtools genomecov -i seed_read_info.s.bed -g sacCer2.chrsize3.txt -bg > seed_coverage.bedgraph
+
+
+### midpoint
+
+
+awk '{print $1 "\t" $5 "\t" $5+1}' ../seed_read_info.bed > seed_read_info.mid.bed 
+sort -k1,1 -k2,2n seed_read_info.mid.bed > seed_read_info.mid.s.bed
+bedtools genomecov -i seed_read_info.mid.s.bed -g sacCer2.chrsize3.txt -bg > seed_read_info.mid.s.bedgraph
+
+
+### To eject the discard seeds
+
+awk '{print $1 "\t" $5 "\t" $5+1 "\t" $7}' ../seed_reach_15.bed > seed_reach_15.mother.bed
+
+awk '!seen[$0]++' seed_reach_15.mother.bed > seed_reach_15.mother-uniq.bed
+
+sort -k1,1 -k2,2n seed_reach_15.mother-uniq.bed > seed_reach_15.mother-uniq.s.bed
+bedtools genomecov -i seed_reach_15.mother-uniq.s.bed -g sacCer2.chrsize3.txt -bg > seed_reach_15.mother-uniq.s.bedgraph
+
+bedgraphtobigwig seed_reach_15.mother-uniq.s.bedgraph sacCer2.chrsize3.txt seed_reach_15.mother-uniq.s.bw
+
+bedgraphtobigwig seed_read_info.mid.s.bedgraph sacCer2.chrsize3.txt seed_read_info.mid.s.bedgraph.bw
+

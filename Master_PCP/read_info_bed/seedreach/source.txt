@@ -1,0 +1,38 @@
+
+sed 's/^/@/' ../../seeds.rIDs.txt > seed.rid.txt
+
+awk -F'_' '{print $1}' seed.rid.txt > seeds.rIDs.nobc.txt
+
+sort seeds.rIDs.nobc.txt > seeds.rIDs.nobc.s.txt
+
+split -n 10  ../read_info.r.s.bed read_info.sr.
+
+awk 'NR==FNR{ids[$1]; next} $8 in ids' seeds.rIDs.nobc.s.txt read_info.sr.aa > seed_read_info.p1 &
+awk 'NR==FNR{ids[$1]; next} $8 in ids' seeds.rIDs.nobc.s.txt read_info.sr.ab > seed_read_info.p2 &
+awk 'NR==FNR{ids[$1]; next} $8 in ids' seeds.rIDs.nobc.s.txt read_info.sr.ac > seed_read_info.p3 &
+awk 'NR==FNR{ids[$1]; next} $8 in ids' seeds.rIDs.nobc.s.txt read_info.sr.ad > seed_read_info.p4 &
+awk 'NR==FNR{ids[$1]; next} $8 in ids' seeds.rIDs.nobc.s.txt read_info.sr.ae > seed_read_info.p5 &
+awk 'NR==FNR{ids[$1]; next} $8 in ids' seeds.rIDs.nobc.s.txt read_info.sr.af > seed_read_info.p6 &
+awk 'NR==FNR{ids[$1]; next} $8 in ids' seeds.rIDs.nobc.s.txt read_info.sr.ag > seed_read_info.p7 &
+awk 'NR==FNR{ids[$1]; next} $8 in ids' seeds.rIDs.nobc.s.txt read_info.sr.ah > seed_read_info.p8 &
+awk 'NR==FNR{ids[$1]; next} $8 in ids' seeds.rIDs.nobc.s.txt read_info.sr.ai > seed_read_info.p9 &
+awk 'NR==FNR{ids[$1]; next} $8 in ids' seeds.rIDs.nobc.s.txt read_info.sr.aj > seed_read_info.p10
+
+wait
+
+cat seed_read_info.p1 seed_read_info.p2 seed_read_info.p3 seed_read_info.p4 seed_read_info.p5 seed_read_info.p6 seed_read_info.p7 seed_read_info.p8 seed_read_info.p9 seed_read_info.p10 > seed_read_info.bed
+
+python seedreach_work_15ns.py
+
+
+
+####---- To plot seed reach distribution
+
+awk -F '\t' '($6=="+")' ../seed_reach_15.ns.bed > seed_reach.top.bed
+
+awk -F '\t' '($18>= -2000 && $18<= 2000)' seed_reach.top.bed > seed_reach.top.filt.bed
+
+awk -F '\t' '{freq[$18]++} END {for (i in freq) print i, freq[i]}' seed_reach.top.filt.bed | parsort -t'\t' -k1,1n -k2,1n  > seed_reach.dist.txt
+
+# plot this table in prism or excel
+
