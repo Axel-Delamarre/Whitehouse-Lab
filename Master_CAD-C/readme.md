@@ -11,6 +11,8 @@ This pipeline processes nanopore sequencing reads to:
 - Generate contact matrices for chromatin interaction analysis
 - Produce Hi-C compatible output files
 
+- This pipeline need to be run 1st before looking for sister-nucleosome interactions in the subfolder /sister_crhomatid_overlap_processing
+
 ## To run this pipeline:
 
 1. Install the required tools  
