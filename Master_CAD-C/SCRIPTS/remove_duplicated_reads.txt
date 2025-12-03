@@ -1,0 +1,3 @@
+Applications/last-1418/bin/lastal -Q 1 -P10 Oligo_index/cDNABarcode.txt  Fastq/*.fastq | perl SCRIPTS/maf_bcsplit_IW.pl > maf_out.txt
+
+#| awk -F',' '{print $1,$2}' | sort |  uniq -d | awk '{print $1}' | uniq > reads_with_duplicated_adapters.txt
