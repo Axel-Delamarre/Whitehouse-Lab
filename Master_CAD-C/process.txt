@@ -124,3 +124,11 @@ sed -e 's/chr16/chrXVI/g' -e 's/chr15/chrXV/g' -e 's/chr14/chrXIV/g' -e 's/chr13
 
 # Sort the bed 
 parsort -k1,1 -k2,2n read_info.r.bed > read_info.r.s.bed
+
+
+# Change direcrtoy to the subfolder sister_crhomatid_overlap_processing to find nucleosome covering the same segment overlaping in the same long read
+# - the files are slightly modified in this subfolder to not adjust nucleosome sizes to mononucleosomes and to take into account any size
+
+cd sister_crhomatid_overlap_processing
+
+source process.txt
