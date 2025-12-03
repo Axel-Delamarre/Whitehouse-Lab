@@ -194,7 +194,7 @@ parsort -k1,1 -k2,2n read_info.txt > read_info.r.s.bed
 │   └── DNABarcode.txt
 ├── SCRIPTS/               # Helper scripts
 │   ├── maf_bcsplit_IW.pl
-│   └── Readinfobed--pairs--CADC.py
+├── Readinfobed--pairs--CADC.py
 ├── sacCer3.fa            # Reference genome
 ├── sacCer2.chrsize3.txt  # Chromosome sizes
 └── README.md
