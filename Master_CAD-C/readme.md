@@ -171,11 +171,6 @@ parsort -k1,1 -k2,2n read_info.txt > read_info.r.s.bed
 
 | File | Description |
 |------|-------------|
-| maf_nucs.txt | Nucleosome positions between linkers |
-| read_ID_countsq.txt | Frequency of nucleosomes per read |
-| GTF_maf_nucs.txt | GTF format file of nucleosome positions |
-| Maf_nucs.fastq | Extracted nucleosome sequences |
-| alignment_dedup.bed | Deduplicated alignment coordinates |
 | read_info.txt | Processed read information |
 | *.hic | Juicer Hi-C format file |
 | extr.cool | Cooler format contact matrix |
