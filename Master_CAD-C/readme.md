@@ -24,7 +24,6 @@ This pipeline processes nanopore sequencing reads to:
 - **Nucleosome Extraction**: Identifies and extracts nucleosome-sized fragments (13-1000 bp)
 - **Quality Filtering**: Removes low-quality alignments (MAPQ < 40) and hairpin artifacts
 - **Multiple Output Formats**: Generates BED, Juicer, and Cooler format files
-- **Chromosome Conversion**: Converts chromosome names to Roman numerals for yeast genomes
 
 ## Prerequisites
 ### Core tools
