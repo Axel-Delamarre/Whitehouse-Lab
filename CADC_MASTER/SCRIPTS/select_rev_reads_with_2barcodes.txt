@@ -1,4 +1,0 @@
-#lastal -Q 1 -P 10 Oligo_index/cDNABarcode.txt Position_Quaility_pass.txt | perl SCRIPTS/maf_bcsplit_IW.pl | grep -e 'ONT_SSP,-' | awk -F',' '{print $1}' | sort | uniq | perl SCRIPTS/fastx-fetch.pl -i - Position_Quaility_pass.txt > revQry_seqs_a.txt
-
-lastal -Q 1 -P 10 Oligo_index/cDNABarcode.txt Position_Quaility_pass.txt | perl SCRIPTS/maf_bcsplit_IW.pl | grep -e 'ONT_VNP,+' | awk -F',' '{print $1}' | sort | uniq | perl SCRIPTS/fastx-fetch.pl -i - Position_Quaility_pass.txt > revQry_seqs_a.txt
-
