@@ -1,0 +1,46 @@
+minimap2 -ax map-ont Gubbins/w303.fa fwdQry_seqs_a.txt > fwd_seqs.sam
+minimap2 -ax map-ont Gubbins/w303.fa revQry_seqs_a.txt > rev_seqs.sam
+
+samtools view -@8 -bS fwd_seqs.sam | samtools sort - > fwd_seqs_sorted.bam
+samtools view -@8 -bS rev_seqs.sam | samtools sort - > rev_seqs_sorted.bam
+
+bamtobed -i fwd_seqs_sorted.bam |awk '$5 > 30' > fwd_seqs_sorted.bed
+bamtobed -i rev_seqs_sorted.bam |awk '$5 > 30' > rev_seqs_sorted.bed
+
+
+
+#bedtools genomecov -i fwd_seqs_sorted.bed -strand + -bg -g Gubbins/Budding_chr_lengthsW303.txt > fwdQry_seqs_plus.bg
+#bedtools genomecov -i fwd_seqs_sorted.bed -strand - -bg -g Gubbins/Budding_chr_lengthsW303.txt > fwdQry_seqs_minus.bg
+
+#bedtools genomecov -i rev_seqs_sorted.bed -strand + -bg -g Gubbins/Budding_chr_lengthsW303.txt > revQry_seqs_plus.bg
+#bedtools genomecov -i rev_seqs_sorted.bed -strand - -bg -g Gubbins/Budding_chr_lengthsW303.txt > revQry_seqs_minus.bg
+
+
+
+
+#bedtools map -b fwdQry_seqs_plus.bg -a Gubbins/w303_genome_10bp_windows.txt -c 4 -o max -null 0  > fwdQry_seqs_plus_100.bg
+#bedtools map -b fwdQry_seqs_minus.bg -a Gubbins/w303_genome_10bp_windows.txt -c 4 -o max -null 0  > fwdQry_seqs_minus_100.bg
+#bedtools map -b revQry_seqs_plus.bg -a Gubbins/w303_genome_10bp_windows.txt -c 4 -o max -null 0  > revQry_seqs_plus_100.bg
+#bedtools map -b revQry_seqs_minus.bg -a Gubbins/w303_genome_10bp_windows.txt -c 4 -o max -null 0  > revQry_seqs_minus_100.bg
+
+#perl Gubbins/sgr2wig_IW_argv.pl fwdQry_seqs_plus_100.bg fwdQry_seqs_plus_100
+#perl Gubbins/sgr2wig_IW_argv.pl fwdQry_seqs_minus_100.bg fwdQry_seqs_minus_100
+#perl Gubbins/sgr2wig_IW_argv.pl revQry_seqs_plus_100.bg revQry_seqs_plus_100
+#perl Gubbins/sgr2wig_IW_argv.pl revQry_seqs_minus_100.bg revQry_seqs_minus_100
+
+
+sed 's/+/a/g' rev_seqs_sorted.bed | sed 's/-/b/g' | sed 's/a/-/g'| sed 's/b/+/g' > fwd_rev_seqs_sorted.bed
+cat fwd_rev_seqs_sorted.bed fwd_seqs_sorted.bed | bedtools sort -i - | sed -e '/chrMtDNA/d'> fwd_rev_seqs_sorted_combined.bed
+
+bedtools genomecov -i fwd_rev_seqs_sorted_combined.bed -strand + -bg -g Gubbins/Budding_chr_lengthsW303.txt  > fwd_rev_seqs_sorted_combined_plus.bg
+bedtools genomecov -i fwd_rev_seqs_sorted_combined.bed -strand - -bg -g Gubbins/Budding_chr_lengthsW303.txt > fwd_rev_seqs_sorted_combined_minus.bg
+
+bedtools map -b fwd_rev_seqs_sorted_combined_plus.bg -a Gubbins/w303_genome_10bp_windows.txt -c 4 -o max -null 0  > fwd_rev_seqs_sorted_combined_plus_10.bg
+bedtools map -b fwd_rev_seqs_sorted_combined_minus.bg -a Gubbins/w303_genome_10bp_windows.txt -c 4 -o max -null 0  > fwd_rev_seqs_sorted_combined_minus_10.bg
+
+perl Gubbins/sgr2wig_IW_argv.pl fwd_rev_seqs_sorted_combined_plus_10.bg fwd_rev_seqs_sorted_combined_plus_10
+perl Gubbins/sgr2wig_IW_argv.pl fwd_rev_seqs_sorted_combined_minus_10.bg fwd_rev_seqs_sorted_combined_minus_10
+
+
+
+# awk '$2=="16"{$2="a"}1' fwd_seqs.small | awk '$2=="0"{$2="b"}1' | awk '$2=="a"{$2="0"}1' | awk '$2=="b"{$2="16"}1' | tr ' ' \\t > out2
