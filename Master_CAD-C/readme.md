@@ -173,7 +173,7 @@ parsort -k1,1 -k2,2n read_info.txt > read_info.r.s.bed
 |------|-------------|
 | read_info.txt | Processed read information |
 | *.hic | Juicer Hi-C format file |
-| extr.cool | Cooler format contact matrix |
+| *.mcool | Cooler format contact matrix |
 | read_info.r.s.bed | Sorted BED with Roman numeral chromosomes |
 
 ## Parameters
