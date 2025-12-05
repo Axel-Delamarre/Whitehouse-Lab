@@ -1,4 +1,0 @@
-lastdb Oligo_index/CE_SL1_2.txt Oligo_index/CE_SL1_2.txt
-
-lastal -Q 1 -P 10 Oligo_index/CE_SL1_2.txt Position_Quaility_pass.txt | perl SCRIPTS/maf_bcsplit_IW.pl | grep -e 'CE_SL1' -e 'CE_SL2' | awk -F',' '{print $1}' | sort | uniq | perl SCRIPTS/fastx-fetch.pl -v -i - Position_Quaility_pass.txt > no_Splice_leader.fastq
-

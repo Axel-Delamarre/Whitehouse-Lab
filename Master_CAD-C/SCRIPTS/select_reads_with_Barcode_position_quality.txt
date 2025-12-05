@@ -1,4 +1,0 @@
-lastal -Q 1 -P 10 Oligo_index/cDNABarcode.txt CorrectedReads.uniqueOnly | perl SCRIPTS/maf_bcsplit_IW.pl | awk -F',' '$14 < 80' | awk -F',' '$15 > 83'|  awk -F',' '{print $1}' | sort | uniq | perl SCRIPTS/fastx-fetch.pl -i - CorrectedReads.uniqueOnly > Position_Quaility_pass.txt
-
-#$14 refers to the position of barcode within the read (normally 80)
-#$15 refers to the quality score of the barcode in lastal (Normally 83)
