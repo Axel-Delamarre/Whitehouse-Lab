@@ -113,7 +113,7 @@ Create read_info (homogenized format):
 </code></pre>
 </li>
 
-This produces a tab separated text file 'read_info.txt' file with the following columns:
+This produces a tab separated text file `read_info.txt` file with the following columns:
 | Chromosome | Fragment start point | Fragment end point | Fragment size | Fragment midpoint | Strand| read_ID|
 |------|------|------|------|------|------|-------------|
 |chrXIII|679945|680261|316|680103|-|000000f8_4679_4275_a1c2_9d90bdd5a2d8 |
