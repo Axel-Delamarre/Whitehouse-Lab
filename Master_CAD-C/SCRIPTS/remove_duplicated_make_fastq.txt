@@ -1,0 +1,1 @@
+perl SCRIPTS/fastx-fetch.pl -v -i reads_with_duplicated_adapters.txt Fastq/*.fastq > CorrectedReads.uniqueOnly
